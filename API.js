@@ -13,5 +13,18 @@ API.get('/', (req, res) => {
 });
 
 API.get('/tarefas', (req, res) => {
-    res.send(tarefas);
+    res.json(tarefas);
 });
+
+API.get('/tarefas:id', (req, res) => {
+    const id = req.params.id;
+    const tarefa = tarefas.find(
+        u => u.id === parseInt(id)
+    );
+    if (!tarefa){
+       return res.statusCode(404).json({error:'Tarefa não encontrada'});
+    }
+    res.status(200).json(tarefas)
+});
+
+
